@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TableData = ({item, handleUpdate,handleDelete }) => {
+const TableData = ({item, handleUpdate,handleDelete,handleView }) => {
 
   return (
    
@@ -12,7 +12,7 @@ const TableData = ({item, handleUpdate,handleDelete }) => {
         <td class="px-6 py-4 text-center ">
                     <a  className="font-medium mx-1 text-blue-600 dark:text-blue-500 cursor-pointer " onClick={()=>handleUpdate(item)} >Edit</a>
                     <a className="font-medium mx-1 text-blue-600 dark:text-blue-500 cursor-pointer" onClick={() => handleDelete(item.id)}>delete</a>
-                    <a className="font-medium text-blue-600 dark:text-blue-500 cursor-pointer">view</a>
+                    <a className="font-medium text-blue-600 dark:text-blue-500 cursor-pointer"onClick={() => handleView(item.id)}>view</a>
                 </td>
       </tr>
     </tbody>
