@@ -104,9 +104,10 @@ function App() {
     type="text"
     id="nom"
     name="nom"
+    placeholder='type nom'
     value={formData.nom}
     onChange={handleChange}
-    className="p-2 border rounded-md mb-2 md:mb-0 md:mr-2"
+    className="p-2 border bg-purple-300 rounded-md mb-2 md:mb-0 md:mr-2"
   />
 
   <label htmlFor="ville" className="mr-2">
@@ -116,12 +117,13 @@ function App() {
     type="text"
     id="ville"
     name="ville"
+    placeholder='type ville'
     value={formData.ville}
     onChange={handleChange}
-    className="p-2 border rounded-md mb-2 md:mb-0 md:mr-2"
+    className="p-2 border bg-purple-300 rounded-md mb-2 md:mb-0 md:mr-2"
   />
 
-  <button type="submit" className="bg-blue-600 text-white p-2 rounded-md mx-2 md:mx-4">
+  <button type="submit" className="bg-purple-500 text-white p-2 rounded-md mx-2 md:mx-4">
     {isEditing ? 'Update' : 'Create'}
   </button>
 </form>
@@ -131,7 +133,7 @@ function App() {
   placeholder="Search by Nom or Ville"
   value={searchTerm}
   onChange={(e) => setSearchTerm(e.target.value)}
-  className="p-2  border rounded-md mb-4 md:mb-4 md:mr-2"
+  className="p-2  bg-purple-300 border rounded-md mb-4 md:mb-4 md:mr-2"
 />
 
 </div>
@@ -139,8 +141,8 @@ function App() {
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr className="bg-gray-200">
+            <thead className="text-xs text-gray-700 uppercase bg-purple-500  dark:bg-gray-700 dark:text-gray-400">
+              <tr className="bg-purple-300 ">
                 <th className="py-2 px-4 border-b">ID</th>
                 <th className="py-2 px-4 border-b">Nom</th>
                 <th className="py-2 px-4 border-b" >Ville</th>
