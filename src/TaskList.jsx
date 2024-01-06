@@ -1,15 +1,22 @@
-// TaskList.jsx
-import React, { useState } from 'react';
-import TaskItem from './TaskItem';
+import React, { useState, useEffect } from 'react';
+import TaskItem from './TaskItem.jsx';
 
-const TaskList = ({ listToDo, setListToDo,  handleChange }) => {
+const TaskList = ({ listToDo, setListToDo, handleChange, formData, setFormData }) => {
   const [editId, setEditId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    id: Date.now(),
-    text: "",
-    check: false,
-  });
+
+  // Load data from local storage when the component mounts
+  useEffect(() => {
+    const cachedList = JSON.parse(localStorage.getItem('todoList'));
+    if (cachedList) {
+      setListToDo(cachedList);
+    }
+  }, [setListToDo]);
+
+  // Save data to local storage whenever the listToDo state changes
+  useEffect(() => {
+    localStorage.setItem('todoList', JSON.stringify(listToDo));
+  }, [listToDo]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +25,7 @@ const TaskList = ({ listToDo, setListToDo,  handleChange }) => {
       const data = {
         id: isEditing ? editId : Date.now() + 1,
         formData: { ...formData },
+        check: isEditing ? !listToDo.find(item => item.id === editId).formData.check : false,
       };
 
       if (isEditing) {
@@ -33,7 +41,8 @@ const TaskList = ({ listToDo, setListToDo,  handleChange }) => {
       }
 
       setFormData({
-        text: "",
+        id: Date.now(),
+        text: '',
         check: false,
       });
     } catch (error) {
@@ -42,19 +51,9 @@ const TaskList = ({ listToDo, setListToDo,  handleChange }) => {
   };
 
   const handleCheck = (id) => {
-    try {
-      const selectedItem = listToDo.find((item) => item.id === id);
-  
-      if (selectedItem) {
-        setFormData({ ...selectedItem.formData, check: true });
-        setIsEditing(true);
-        setEditId(id);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    setEditId(id);
+    setIsEditing(true);
   };
-  
 
   return (
     <>
@@ -81,9 +80,7 @@ const TaskList = ({ listToDo, setListToDo,  handleChange }) => {
         </button>
       </form>
       {listToDo.map((item) => (
-        <React.Fragment key={item.id}>
-          <TaskItem key={item.id} handleCheck={handleCheck} item={item.formData} />
-        </React.Fragment>
+        <TaskItem key={item.id} handleCheck={handleCheck} item={item.formData} />
       ))}
     </>
   );
