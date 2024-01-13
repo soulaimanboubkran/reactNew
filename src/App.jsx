@@ -1,8 +1,10 @@
 // App.jsx
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import TaskList from './TaskList';
-import { Kg } from './components/app/app';
+
+import Personne from './components/app/Personne/Personne';
+import FormulaireAddition from './components/FormulaireAddition/FormulaireAddition';
+import Formulaire from './components/formulaire/Formulaire';
 
 function App() {
   {/* const [listToDo, setListToDo] = useState([]);
@@ -22,10 +24,14 @@ function App() {
     setFormData((prev) => ({...prev,[name]: type === "checkbox" ? checked : value,}));
   };
 */}
-
+const rappel = () =>{
+  
+}
   return (
     <>
-    <Kg/>
+    <Personne/>
+    <FormulaireAddition/>
+    <Formulaire rappel={rappel}/>
       {/* <TaskList listToDo={listToDo} setListToDo={setListToDo} handleChange={handleChange} setFormData={setFormData} formData={formData} />*/}
     </>
   );
