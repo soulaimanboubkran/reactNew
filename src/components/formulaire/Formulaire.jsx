@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Formulaire = ({rappel}) => {
+const [mess,setMess] = useState('')
 
   return (
     <div>
- <textarea  className="resize border rounded-md" id="user-input" placeholder="Enter your text here" />
-      <button onClick={rappel}>send</button>
+ <textarea onChange={(e)=>setMess(e.target.value)}  className="resize border rounded-md" id="user-input" placeholder="Enter your text here" />
+      <button onClick={()=>rappel(mess)}>send</button>
     </div>
   )
 }
