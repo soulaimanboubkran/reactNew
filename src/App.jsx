@@ -5,7 +5,9 @@ import './App.css';
 import Personne from './components/Personne/Personne';
 import FormulaireAddition from './components/FormulaireAddition/FormulaireAddition';
 import Formulaire from './components/formulaire/Formulaire';
-import GaleriePhotos from './components/GaleriePhotos/GaleriePhotos';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Posts from './components/tp16/Posts';
+import Post from './components/tp16/Post';
 
 function App() {
   {/* const [listToDo, setListToDo] = useState([]);
@@ -28,12 +30,21 @@ function App() {
 const rappel = (mess) =>{
   return alert(mess)
 }
+
   return (
     <>
+
+    <BrowserRouter>
+    <Routes>
+    <Route path="/posts" element={<Posts />} />
+    <Route path="/post/:id" element={<Post />} />
+    </Routes>
     <Personne/>
     <FormulaireAddition/>
     <Formulaire rappel={rappel}/>
-    <GaleriePhotos/>
+    
+    
+    </BrowserRouter>
       {/* <TaskList listToDo={listToDo} setListToDo={setListToDo} handleChange={handleChange} setFormData={setFormData} formData={formData} />*/}
     </>
   );
