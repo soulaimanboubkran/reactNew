@@ -8,6 +8,7 @@ import Formulaire from './components/formulaire/Formulaire';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Posts from './components/tp16/Posts';
 import Post from './components/tp16/Post';
+import Imdb from './components/imdb/imdb';
 
 function App() {
   {/* const [listToDo, setListToDo] = useState([]);
@@ -36,13 +37,14 @@ const rappel = (mess) =>{
 
     <BrowserRouter>
     <Routes>
+      <Route path='/imdb' element={<Imdb/>}/>
     <Route path="/posts" element={<Posts />} />
     <Route path="/post/:id" element={<Post />} />
     </Routes>
-    <Personne/>
+   {/*  <Personne/>
     <FormulaireAddition/>
     <Formulaire rappel={rappel}/>
-    
+    */}
     
     </BrowserRouter>
       {/* <TaskList listToDo={listToDo} setListToDo={setListToDo} handleChange={handleChange} setFormData={setFormData} formData={formData} />*/}
