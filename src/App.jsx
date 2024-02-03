@@ -28,14 +28,17 @@ function App() {
     setFormData((prev) => ({...prev,[name]: type === "checkbox" ? checked : value,}));
   };
 */}
+
+
 const rappel = (mess) =>{
   return alert(mess)
 }
 
   return (
     <>
-
+   
     <BrowserRouter>
+
     <Routes>
       <Route path='/imdb' element={<Imdb/>}/>
     <Route path="/posts" element={<Posts />} />
