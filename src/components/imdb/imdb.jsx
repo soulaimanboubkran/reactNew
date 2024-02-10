@@ -1,19 +1,25 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+
 const Imdb = () => {
   const [s, setS] = useState("");
   const [type, setType] = useState("movie");
   const [y, setY] = useState(undefined);
   const [result, setResult] = useState([]);
+  const [initialQuantities, setInitialQuantities] = useState({});
   const dispatch = useDispatch();
   const products = useSelector((state) => state.cart.products);
 
-
-const addToCart = (item) => {
-    dispatch({ type: "ADD_TO_CART", payload: { id: item.imdbID, title: item.Title }});
+  const addToCart = (item, quantity) => {
+    dispatch({ type: "ADD_TO_CART", payload: { id: item.imdbID, title: item.Title, quantity }});
   };
+
   const removeFromCart = (itemId) => {
     dispatch({ type: "REMOVE_FROM_CART", payload: itemId });
+  };
+
+  const handleQuantityChange = (itemId, quantity) => {
+    setInitialQuantities({...initialQuantities, [itemId]: quantity});
   };
 
   const handleClick = async () => {
@@ -24,22 +30,18 @@ const addToCart = (item) => {
     } catch (error) {
       console.error('Error fetching:', error);
     } 
-  }
-  
+  };
 
   return (
     <div className="flex flex-col gap-4 p-4">
-
-
-        <ul>
+      <ul>
         {products.map((product, index) => (
           <li key={index}>
-            {product.title}
-                <button className='ml-5' onClick={() => removeFromCart(product.id)}>  x</button>
+            {product.title} {product.quantity}
+            <button className='ml-5' onClick={() => removeFromCart(product.id)}> x</button>
           </li>
         ))}
       </ul>
-
 
       <div className="flex gap-4">
         <input name='s' value={s} className="flex-1 border border-gray-300 rounded-xl p-2" placeholder="Search..." onChange={(e) => setS(e.target.value)} />
@@ -52,31 +54,34 @@ const addToCart = (item) => {
       </div>
 
       <div className="grid gap-4">
-
-        
-            {result && result.map((item) => (
-        <div key={item.imdbID} className="flex gap-4">
-          <img
-            alt="Cover image"
-            className="rounded-lg object-cover w-24 h-36"
-            src={item.Poster}
-            style={{
-              aspectRatio: "100/150",
-              objectFit: "cover",
-            }}
-          />
-          <div className="flex flex-col gap-2">
-            <h3 className="font-semibold">{item.Title}</h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">{item.Type}, {item.Year}</p>
-            <button onClick={() => addToCart(item)}>Add to Cart</button>
+        {result && result.map((item) => (
+          <div key={item.imdbID} className="flex gap-4">
+            <img
+              alt="Cover image"
+              className="rounded-lg object-cover w-24 h-36"
+              src={item.Poster}
+              style={{
+                aspectRatio: "100/150",
+                objectFit: "cover",
+              }}
+            />
+            <div className="flex flex-col gap-2">
+              <h3 className="font-semibold">{item.Title}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">{item.Type}, {item.Year}</p>
+              <input 
+                type="number" 
+                value={initialQuantities[item.imdbID] || 1} 
+                onChange={(e) => handleQuantityChange(item.imdbID, parseInt(e.target.value))} 
+                min="1" 
+                className="border border-gray-300 rounded-xl p-2 w-24" 
+                placeholder="Quantity" 
+              />
+              <button onClick={() => addToCart(item, initialQuantities[item.imdbID] || 1)}>Add to Cart</button>
+            </div>
           </div>
-        </div>
-      ))}
-
+        ))}
       </div>
-     
     </div>
-    
   );
 };
 
