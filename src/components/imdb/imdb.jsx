@@ -14,6 +14,13 @@ const Imdb = () => {
     dispatch({ type: "ADD_TO_CART", payload: { id: item.imdbID, title: item.Title, quantity }});
   };
 
+  const addMore = (itemId) => {
+    dispatch({ type: "addMore", payload: itemId });
+  };
+  const n9ss = (itemId) => {
+    dispatch({ type: "-", payload: itemId });
+  };
+
   const removeFromCart = (itemId) => {
     dispatch({ type: "REMOVE_FROM_CART", payload: itemId });
   };
@@ -37,8 +44,11 @@ const Imdb = () => {
       <ul>
         {products.map((product, index) => (
           <li key={index}>
-            {product.title} {product.quantity}
+            {product.title} 
+            <button className='ml-5 mx-5' onClick={() =>n9ss(product.id)}> -</button>{product.quantity}
+            <button className='ml-5' onClick={() => addMore(product.id)}> +</button>
             <button className='ml-5' onClick={() => removeFromCart(product.id)}> x</button>
+
           </li>
         ))}
       </ul>

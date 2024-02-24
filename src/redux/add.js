@@ -31,7 +31,54 @@ const cartReducer = (state = initialState, action) => {
                   products: [...state.products, { ...action.payload }],
               };
           }
+          case "addMore":
+            const existingProduct = state.products.findIndex(
+                (product) => product.id === action.payload
+            );
+            if (existingProduct !== -1) {
+                return {
+                    ...state,
+                    products: state.products.map((product, index) => {
+                        if (index === existingProduct) {
+                            return {
+                                ...product,
+                                quantity: product.quantity + 1,
+                            };
+                        }
+                        return product;
+                    }),
+                };
+            } else {
+                return {
+                    ...state,
+                    products: [...state.products, { ...action.payload, quantity: 1 }],
+                };
+            }
 
+            case "-":
+                const existing = state.products.findIndex(
+                    (product) => product.id === action.payload
+                );
+                if (existing !== -1) {
+                    return {
+                        ...state,
+                        products: state.products.map((product, index) => {
+                            if (index === existing) {
+                                return {
+                                    ...product,
+                                    quantity: product.quantity -1,
+                                };
+                            }
+                            return product;
+                        }),
+                    };
+                } else {
+                    return {
+                        ...state,
+                        products: [...state.products, { ...action.payload, quantity: 1 }],
+                    };
+                }
+    
       case "REMOVE_FROM_CART":
           return {
               ...state,
