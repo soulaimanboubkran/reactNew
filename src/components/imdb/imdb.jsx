@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { ADD_TO_CART } from '../../redux/add';
 
 const Imdb = () => {
   const [s, setS] = useState("");
@@ -11,7 +12,7 @@ const Imdb = () => {
   const products = useSelector((state) => state.cart.products);
 
   const addToCart = (item, quantity) => {
-    dispatch({ type: "ADD_TO_CART", payload: { id: item.imdbID, title: item.Title, quantity }});
+    dispatch(ADD_TO_CART({ id: item.imdbID, title: item.Title, quantity }));
   };
 
   const addMore = (itemId) => {
@@ -45,14 +46,13 @@ const Imdb = () => {
         {products.map((product, index) => (
           <li key={index}>
             {product.title} 
-            <button className='ml-5 mx-5' onClick={() =>n9ss(product.id)}> -</button>{product.quantity}
+            <button className='ml-5 mx-5' onClick={() => n9ss(product.id)}> -</button>{product.quantity}
             <button className='ml-5' onClick={() => addMore(product.id)}> +</button>
             <button className='ml-5' onClick={() => removeFromCart(product.id)}> x</button>
-
+            
           </li>
         ))}
       </ul>
-
       <div className="flex gap-4">
         <input name='s' value={s} className="flex-1 border border-gray-300 rounded-xl p-2" placeholder="Search..." onChange={(e) => setS(e.target.value)} />
         <select defaultValue={type} onChange={(e) => setType(e.target.value)} className='border border-gray-300 rounded-xl p-2'>
